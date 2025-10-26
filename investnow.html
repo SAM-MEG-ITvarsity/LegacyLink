@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LegacyLink Invest</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"rel="stylesheet"/>
+   <link rel="stylesheet" href="investnow.css">
+</head>
+ 
+
+<body>
+
+<div class="hero">
+  <h1>Secure Your Child’s Future with LegacyLink</h1>
+  <p>Simple. Safe. Smart Investments for South African Families.</p>
+</div>
+
+
+
+  <h2>LegacyLink Investment Registration Form</h2>
+ <div class="progress-container">
+    <div class="progress-bar">
+      <div class="step active">
+  <span class="number">1</span><br/>
+  <i class="fa-solid fa-house"></i>
+</div>
+
+<div class="step">
+  <span class="number">2</span><br/>
+  <i class="fa-solid fa-user"></i>
+</div>
+
+<div class="step">
+  <span class="number">3</span><br/>
+  <i class="fa-solid fa-child"></i>
+</div>
+
+<div class="step">
+  <span class="number">4</span><br/>
+  <i class="fa-solid fa-file-upload"></i>
+</div>
+
+<div class="step">
+  <span class="number">5</span><br/>
+  <i class="fa-solid fa-check-circle"></i>
+</div>
+
+    <div class="progress-line"></div>
+  </div>
+ </div>
+  <form id="multiStepForm">
+
+    <!-- STEP 1: Investment Selection -->
+<fieldset class="form-step active">
+  <legend>Choose Your Investment</legend>
+
+  <!-- Investment Type -->
+  <label for="investmentType">Investment Type:</label>
+  <select id="investmentType" name="investmentType" required>
+    <option value="" disabled selected>Select investment type</option>
+    <option value="house">House</option>
+    <option value="car">Car</option>
+    <option value="education">Education</option>
+    <option value="business">Business</option>
+  </select>
+
+  <!-- Package -->
+  <label for="packageType">Package:</label>
+  <select id="packageType" name="packageType" required>
+    <option value="" disabled selected>Select package</option>
+    <option value="standard">Standard</option>
+    <option value="gold">Gold</option>
+    <option value="platinum">Platinum</option>
+  </select>
+
+  <!-- Institution -->
+  <label for="institution">Investment Institution:</label>
+  <select id="institution" name="institution" required>
+    <option value="" disabled selected>Select institution</option>
+    <option value="fnb">FNB</option>
+    <option value="absa">ABSA</option>
+    <option value="standardbank">Standard Bank</option>
+    <option value="nedbank">Nedbank</option>
+    <option value="capitec">Capitec</option>
+    <option value="investec">Investec Bank Ltd</option>
+    <option value="sanlam">Sanlam Group</option>
+    <option value="oldmutual">Old Mutual Ltd</option>
+    <option value="santam">Santam Ltd</option>
+    <option value="hollard">Hollard Insurance Company Ltd</option>
+    <option value="miway">MiWay Insurance</option>
+  </select>
+  <div class="button-group">
+   
+    <button type="button" class="next">Next</button>
+  </div>
+</fieldset>
+    <!-- STEP 2 -->
+    <fieldset class="form-step">
+      <legend>Parent / Guardian Information</legend>
+      <label>Full Name:</label>
+      <input type="text" required>
+
+      <label>ID Number:</label>
+      <input type="text" required>
+
+      <label>Residential Address:</label>
+      <textarea rows="3" required></textarea>
+
+      <label>Email Address:</label>
+      <input type="email" required>
+
+      <label>Phone Number:</label>
+      <input type="text" required>
+
+       <div class="button-group">
+    <button type="button" class="prev">Previous</button>
+    <button type="button" class="next">Next</button>
+  </div>
+    </fieldset>
+
+    <!-- STEP 3 -->
+  
+<fieldset class="form-step">
+  <legend>Child Information</legend>
+
+  <!-- Child Information -->
+  <label>Full Name:</label>
+  <input type="text" name="childName" placeholder="Enter child's full name" required>
+
+  <label>ID / Birth Certificate Number:</label>
+  <input type="text" name="childID" placeholder="Enter child's ID or birth certificate number" required>
+<br/>
+  <hr>
+<br/>
+  <!-- Alternative Guardian (Optional) -->
+  <legend>Alternative Guardian </legend>
+
+  <label>Full Name:</label>
+  <input type="text" name="guardianName" placeholder="Enter guardian's full name">
+
+  <label>ID Number:</label>
+  <input type="text" name="guardianID" placeholder="Enter guardian's ID number">
+
+  <label>Phone Number:</label>
+  <input type="text" name="guardianPhone" placeholder="e.g. +27 68 123 4567">
+
+  <label>Address:</label>
+  <textarea name="guardianAddress" rows="3" placeholder="Enter guardian's address"></textarea>
+
+  <div class="button-group">
+    <button type="button" class="prev">Previous</button>
+    <button type="button" class="next">Next</button>
+  </div>
+</fieldset>
+
+
+   
+    <!-- STEP 4 -->
+    <fieldset class="form-step">
+      <legend>Document Uploads</legend>
+      <label>Parent ID / Passport:</label>
+      <input type="file" required>
+
+      <label>Child Birth Certificate:</label>
+      <input type="file" required>
+
+      <label>Recent Bank Statement:</label>
+      <input type="file" required>
+
+      <label>Proof of Residence:</label>
+      <input type="file" required>
+
+      <div class="button-group">
+        <button type="button" class="prev">Previous</button>
+        <button type="button" class="next">Next</button>
+      </div>
+    </fieldset>
+
+    <!-- STEP 5 -->
+    <fieldset class="form-step">
+      <legend>Confirm & Submit</legend>
+         <div style="border:1px solid #000; padding:10px; height:400px; overflow-y:scroll;">
+
+         <h3>LegacyLink – Terms and Conditions of Investment</h3>
+        <p><strong>Last updated:</strong> [Insert Date]</p>
+
+        <p>Welcome to LegacyLink, a digital investment and financial planning platform designed to help families build a sustainable financial future for the next generation. These Terms and Conditions (“Terms”) constitute a legally binding agreement between you (“Investor,” “User,” or “Client”) and LegacyLink (Pty) Ltd (“LegacyLink,” “we,” “our,” or “us”). By accessing or using our services, website, or mobile application, you acknowledge that you have read, understood, and agree to be bound by these Terms and all applicable South African laws.</p>
+
+        <h4>1. Purpose and Scope</h4>
+        <p>LegacyLink provides investment and financial planning tools that enable individuals and families to save, grow, and manage funds for long-term goals such as education, housing, and generational wealth. These Terms govern the relationship between LegacyLink and its users and ensure compliance with South African financial and consumer protection legislation.</p>
+
+        <h4>2. Regulatory Framework and Compliance</h4>
+
+        <p><strong>2.1 Financial Sector Regulation Act 9 of 2017 (FSRA):</strong> This Act establishes the regulatory structure for financial services in South Africa — including the creation of the Financial Sector Conduct Authority (FSCA) and the Prudential Authority (PA) under the South African Reserve Bank (SARB). It provides powers to regulate financial product providers, ensure market conduct, and protect financial customers. LegacyLink complies with these obligations by maintaining transparent operations and consumer protection standards.</p>
+
+        <p><strong>2.2 Financial Advisory and Intermediary Services Act 37 of 2002 (FAIS):</strong> Governs the licensing and conduct of providers who give advice or intermediary services relating to financial products. It ensures consumers are provided with adequate information and that those who advise are competent and properly authorised.</p>
+
+        <p><strong>2.3 Protection of Investment Act 22 of 2015:</strong> Provides legislative protection for investors and their investments in South Africa — ensuring a balance between rights and obligations of investors and the state. LegacyLink upholds these principles by maintaining transparent business operations, honouring investor rights, and providing access to fair dispute resolution mechanisms if necessary.</p>
+
+        <p><strong>2.4 Financial Markets Act 19 of 2012:</strong> Ensures the fairness, efficiency, and transparency of financial markets in South Africa. LegacyLink is committed to maintaining market integrity and providing accurate, up-to-date information regarding investment performance, market conditions, and risk disclosures.</p>
+
+        <h4>3. User Eligibility</h4>
+        <p>To use LegacyLink’s services, you must be at least 18 years old; be a South African citizen, permanent resident, or have legal authority to invest in South Africa; and provide accurate, complete, and current personal and financial information when registering.</p>
+
+        <h4>4. Account Registration and Security</h4>
+        <p>Users are required to register for an account before accessing investment features. You are responsible for maintaining the confidentiality of your login credentials and for all activities that occur under your account.</p>
+
+        <h4>5. Investment Process and Terms</h4>
+        <p>Users can select from various investment plans (e.g., Education Fund, Housing Fund, or Family Legacy Fund). Each plan outlines specific minimum contributions, potential returns, and projected growth rates. All investments are subject to market risks and performance variations. LegacyLink does not guarantee fixed returns but ensures that funds are managed responsibly in accordance with applicable laws.</p>
+
+        <h4>6. Risk Disclosure</h4>
+        <p>Investments involve inherent risks, including potential loss of capital, market volatility, and economic fluctuations. By investing through LegacyLink, you acknowledge that you understand these risks and that all investment decisions are made at your own discretion.</p>
+
+        <h4>7. Fees and Charges</h4>
+        <p>LegacyLink may charge service, management, or transaction fees, which will be transparently displayed before any commitment is made. These fees are subject to change with prior notice and are essential for maintaining platform functionality and compliance requirements.</p>
+
+        <h4>8. Data Protection and Confidentiality</h4>
+        <p>LegacyLink strictly complies with the Protection of Personal Information Act (POPIA). All user information collected is securely stored and used solely for legitimate operational and compliance purposes. We implement advanced encryption and data protection measures to safeguard your personal and financial data. LegacyLink will not disclose user information to third parties without explicit consent, except as required by law or regulatory authorities.</p>
+
+        <h4>9. Consumer Protection and Fair Treatment</h4>
+        <p>LegacyLink upholds the Treating Customers Fairly (TCF) principles mandated by the FSCA. This ensures that products and services are designed to meet customer needs; customers receive clear information before, during, and after investing; and any complaints are handled promptly, fairly, and transparently.</p>
+
+        <h4>10. Dispute Resolution</h4>
+        <p>Should any dispute arise, LegacyLink will attempt to resolve it through internal mediation. If unresolved, the matter may be referred to the FSCA’s Office of the Ombud for Financial Services Providers or an accredited arbitration body, as outlined in the FAIS Act and FSRA. All disputes shall be governed by the laws of the Republic of South Africa.</p>
+
+        <h4>11. Amendments to Terms</h4>
+        <p>LegacyLink reserves the right to modify or update these Terms and Conditions to align with legislative changes, regulatory updates, or platform enhancements. All users will be notified of significant changes in advance, and continued use of the platform constitutes acceptance of the revised Terms.</p>
+
+        <h4>12. Termination of Service</h4>
+        <p>LegacyLink may suspend or terminate access to your account if you violate any provision of these Terms, if fraudulent or unlawful activities are detected, or if required by regulatory authorities. Upon termination, all outstanding obligations and investments will be settled in accordance with applicable laws and your selected investment plan’s policies.</p>
+
+        <h4>13. Governing Law and Jurisdiction</h4>
+        <p>These Terms and Conditions are governed by and construed in accordance with the laws of the Republic of South Africa. All legal proceedings arising under or in connection with these Terms shall be handled within the jurisdiction of South African courts.</p>
+
+        <h4>14. Contact Information</h4>
+        <p>For any inquiries, complaints, or requests related to these Terms, please contact:<br><br>
+        <strong>LegacyLink (Pty) Ltd</strong><br>
+        Email: support@legacylink.co.za<br>
+        Tel: +27 (0)68 123 4567<br>
+        Address: [Insert Physical Address]<br>
+        Registered in South Africa – Company Registration No: [Insert Registration Number]<br><br>
+        LegacyLink — Building a Legacy for the Next Generation.<br>
+        Helping families create financial security, stability, and opportunity through responsible investment.</p>
+
+      </div><br>
+<label>
+ <input type="checkbox" id="acceptTerms" required> I have read and agree to the Terms and Conditions
+  </label>
+  <br><br>
+  <button type="button" id="proceedPaymentBtn">Proceed to Payment</button>
+</fieldset>
+    </fieldset>
+</form>
+<div id="paymentOverlay">
+  <div class="overlay-content">
+    <span id="closeOverlay">&times;</span>
+    <h2>Payment Details</h2>
+
+    <!-- Invoice Section -->
+    <div id="invoice">
+      <h3>Invoice</h3>
+      <p>Package: <span id="invoicePackage">Gold House Package</span></p>
+      <p>Amount: <span id="invoiceAmount">R12,500</span></p>
+      <hr>
+    </div>
+
+    <!-- Payment Form -->
+    <form id="fullPaymentForm">
+      <div class="form-group">
+        <label for="cardName">Cardholder Name</label>
+        <input type="text" id="cardName" name="cardName" placeholder="Enter name on card" required>
+      </div>
+
+      <div class="form-group">
+        <label for="cardNumber">Card Number</label>
+        <div class="card-input">
+          <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+          <i id="cardIcon" class="fa-brands fa-cc-visa"></i>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group half">
+          <label for="expiryDate">Expiry Date</label>
+          <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+        </div>
+
+        <div class="form-group half">
+          <label for="cvv">CVV</label>
+          <input type="text" id="cvv" name="cvv" placeholder="123" required>
+        </div>
+      </div>
+
+      <button type="submit" class="pay-btn">Pay Now</button>
+    </form>
+
+    <!-- Success Message -->
+    <div id="successMessage" style="display:none;">
+      <h3>Payment Successful!</h3>
+      <p>Thank you for your payment.</p>
+      <p>Next payment due: <span id="nextPaymentDate">[Date]</span></p>
+    </div>
+  </div>
+</div>
+
+<script>
+    const steps = document.querySelectorAll(".step");
+const progressLine = document.querySelector(".progress-line::before");
+const fieldsets = document.querySelectorAll(".form-step");
+let currentStep = 0;
+
+function updateSteps() {
+  steps.forEach((step, index) => {
+    step.classList.toggle("active", index <= currentStep);
+  });
+
+  const progressLineElement = document.querySelector(".progress-line");
+  const activeSteps = currentStep / (steps.length - 1) * 300;
+  progressLineElement.style.setProperty("--progress-width", `${activeSteps}%`);
+}
+
+document.querySelectorAll(".next").forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (currentStep < fieldsets.length - 1) {
+      fieldsets[currentStep].classList.remove("active");
+      currentStep++;
+      fieldsets[currentStep].classList.add("active");
+      updateSteps();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+});
+
+document.querySelectorAll(".prev").forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (currentStep > 0) {
+      fieldsets[currentStep].classList.remove("active");
+      currentStep--;
+      fieldsets[currentStep].classList.add("active");
+      updateSteps();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+});
+
+updateSteps();
+// Overlay and elements
+const overlay = document.getElementById("paymentOverlay");
+const closeOverlay = document.getElementById("closeOverlay");
+const proceedBtn = document.getElementById("proceedPaymentBtn");
+const termsCheckbox = document.getElementById("acceptTerms");
+const form = document.getElementById("fullPaymentForm");
+const successMsg = document.getElementById("successMessage");
+const nextPaymentDate = document.getElementById("nextPaymentDate");
+
+// Show overlay only if T&C accepted
+proceedBtn.addEventListener("click", () => {
+  if (termsCheckbox.checked) {
+    overlay.style.display = "flex"; // show modal
+  } else {
+    alert("Please accept the Terms and Conditions before proceeding.");
+  }
+});
+
+// Close overlay
+closeOverlay.addEventListener("click", () => {
+  overlay.style.display = "none";
+});
+
+// Close if click outside modal content
+window.addEventListener("click", (event) => {
+  if (event.target === overlay) {
+    overlay.style.display = "none";
+  }
+});
+
+// Card icon logic
+const cardNumber = document.getElementById("cardNumber");
+const cardIcon = document.getElementById("cardIcon");
+cardNumber.addEventListener("input", () => {
+  const val = cardNumber.value;
+  if (/^4/.test(val)) cardIcon.className = "fa-brands fa-cc-visa";
+  else if (/^5[1-5]/.test(val)) cardIcon.className = "fa-brands fa-cc-mastercard";
+  else if (/^3[47]/.test(val)) cardIcon.className = "fa-brands fa-cc-amex";
+  else cardIcon.className = "fa-solid fa-credit-card";
+});
+
+// Payment form submission
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  // Hide form, show success
+  form.style.display = "none";
+  successMsg.style.display = "block";
+
+  // Next payment 30 days from now
+  const today = new Date();
+  today.setDate(today.getDate() + 30);
+  nextPaymentDate.textContent = today.toLocaleDateString("en-ZA");
+});
+
+// Load user or create default
+let user = JSON.parse(localStorage.getItem("user")) || { investments: [], totalInvested: 0 };
+
+// Create new investment
+const newInvestment = {
+  id: Date.now(),          // unique ID
+  name: 'Housing Plan',
+  tier: selectedPackage,   // assuming you have selectedPackage variable
+  invested: selectedAmount,
+  roi: 0,                  // default, can be updated later
+  status: 'Active',
+  lastUpdate: new Date().toLocaleDateString()
+};
+
+// Add to user's investments
+user.investments.push(newInvestment);
+
+// Update total invested
+user.totalInvested = (user.totalInvested || 0) + selectedAmount;
+
+// Save back to localStorage
+localStorage.setItem("user", JSON.stringify(user));
+
+// Get existing investments or create new array
+let investments = JSON.parse(localStorage.getItem('investments')) || [];
+investments.push(newInvestment);
+
+// Save updated list
+localStorage.setItem('investments', JSON.stringify(investments));
+
+// Optional: store total invested
+const totalInvested = investments.reduce((sum, i) => sum + i.invested, 0);
+localStorage.setItem('totalInvested', totalInvested);
+
+ window.location.href = 'profile.html';
+
+</script>
+
+</body>
+</html>

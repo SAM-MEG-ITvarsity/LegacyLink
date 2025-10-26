@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LegacyLink Dashboard</title>
+  <link rel="stylesheet" href="dash.css" />
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"rel="stylesheet"/>
+  </head>
+<body>
+
+  <!--Navbar -->
+  <header>
+    <div class="logo"><i class="fa-solid fa-link"></i> LegacyLink</div>
+    <nav>
+    <a href="#about"><i class="fa-solid fa-info-circle"></i> About</a>&nbsp;&nbsp;&nbsp;
+    <a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a>&nbsp;&nbsp;&nbsp;
+    <a href="#profile"><i class="fa-solid fa-user"></i> Profile</a>&nbsp;&nbsp;&nbsp;
+
+      <button onclick="window.location.href='login.html'" class="logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Welcome, <span id="userName">Samantha</span></h1>
+    <p>Your financial future is in progress. Manage, plan, and grow your legacy all in one place.</p>
+  <button class="invest-btn" onclick="investNow">Invest Now</button>
+  </section>
+
+<!-- Modal -->
+<div id="assetModal" class="asset-modal">
+  <div class="asset-modal-content">
+    <span class="close-btn">&times;</span>
+    <h3 id="modalTitle">Asset Title</h3>
+    <p id="modalText">Asset description will appear here.</p>
+  </div>
+</div>
+
+   <!-- Assets Grid -->
+  <section class="assets">
+  <h2>Assets</h2>
+  <div class="asset-grid">
+    <div class="asset-box">
+      <i class="fa-solid fa-building"></i>
+      <h4>House</h4>
+      <p>Invest in real estate and secure long-term stability for your family.</p><br/>
+      <button class="learn-btn" onclick="learnMore('house')">Learn More</button>
+       <button class="invest-btn" onclick="goToInvest('house')">Invest Now</button>
+    </div>
+
+    <div class="asset-box">
+      <i class="fa-solid fa-car"></i>
+      <h4>Car</h4>
+      <p>Build ownership and mobility with our smart vehicle asset plans.</p><br/>
+      <button class="learn-btn" onclick="learnMore('car')">Learn More</button>
+       <button class="invest-btn" onclick="goToInvest('car')">Invest Now</button>
+    </div>
+
+    <div class="asset-box">
+      <i class="fa-solid fa-briefcase"></i>
+      <h4>Business</h4>
+      <p>Grow your legacy by investing in business opportunities and ventures.</p>
+      <button class="learn-btn" onclick="learnMore('business')">Learn More</button>
+      <button class="invest-btn" onclick="goToInvest('house')">Invest Now</button>
+    </div>
+
+    <div class="asset-box">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <h4>Education</h4>
+      <p>Empower future generations through smart education investments.</p>
+      <button class="learn-btn" onclick="learnMore('education')">Learn More</button>
+       <button class="invest-btn" onclick="goToInvest('education')">Invest Now</button>
+    </div>
+
+<div class="asset-box">
+      <i class="fa-solid fa-bank "></i>
+      <h4>Other</h4>
+      <p>Empower generations through smart investments.</p>
+      <button class="learn-btn" onclick="learnMore('banking')">Learn More</button>
+       <button class="invest-btn" onclick="goToInvest('banking')">Invest Now</button>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Account Summary Section -->
+  <section class="packages">
+  <h3>Inheritance Packages</h3>
+  <div class="package-grid">
+    <div class="package-card standard">
+      <h4>Standard</h4>
+      <p>R350/month</p>
+      <p>Build your legacy step by step.</p>
+    </div>
+    <div class="package-card silver">
+      <h4>Silver</h4>
+      <p>R750/month</p>
+      <p>Grow your assets with smart planning.</p>
+    </div>
+    <div class="package-card gold">
+      <h4>Gold</h4>
+      <p>R1100/month</p>
+      <p>Secure your wealth for generations.</p>
+    </div>
+    <div class="package-card premium">
+      <h4>Premium</h4>
+      <p>R1500/month</p>
+      <p>Maximize returns, minimize stress.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Investment Calculator -->
+
+ <section class="calculator">
+  <h3>💰 Investment & Credit Simulator</h3>
+  <p>Visualize how your LegacyLink plan builds your legacy through smart asset investment.</p>
+
+  <div class="calculator-scroll">
+    <label for="asset">Choose an Asset:</label>
+    <select id="asset">
+      <option value="business">Business</option>
+      <option value="house">House</option>
+      <option value="car">Car</option>
+      <option value="education">Education</option>
+      <option value="investment">Investment Portfolio</option>
+    </select>
+
+    <label for="years">Number of Years Invested:</label>
+    <input type="number" id="years" placeholder="e.g. 5" min="1" max="50">
+
+    <label for="package">Choose a Package:</label>
+    <select id="package">
+      <option value="standard">Standard - R350/month</option>
+      <option value="silver">Silver - R750/month</option>
+      <option value="gold">Gold - R1100/month</option>
+      <option value="premium">Premium - R1500/month</option>
+    </select>
+
+    <button onclick="calculateInvestment()">Simulate Growth</button>
+
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <p id="result"></p>
+    <p id="creditScore"></p>
+  </div>
+   <button class="invest-btn" onclick="investNow('house')">Invest Now</button>
+</section>
+<!-- PARTNERS & INSTITUTIONS SECTION -->
+<section class="partners-section">
+  <div class="partners-overlay">
+    <div class="container">
+      <h2>Our Trusted Partners & Institutions</h2>
+      <p>We’re proud to collaborate with leading banks, insurance providers, and financial institutions committed to securing your family’s future.</p>
+
+      <div class="partners-logos">
+        <div class="partner-card">
+          <img src="images/fnb logo.png" alt="FNB">
+        </div>
+        <div class="partner-card">
+          <img src="images/absa logo.png" alt="ABSA">
+        </div>
+        <div class="partner-card">
+          <img src="images/sanlam logo.png" alt="Sanlam">
+        </div>
+        <div class="partner-card">
+          <img src="images/nedbank logo.png" alt="Old Mutual">
+        </div>
+        <div class="partner-card">
+          <img src="images/stdbank logo.jpg" alt="Standard Bank">
+        </div>
+        <div class="partner-card">
+          <img src="images/capitec logo.png" alt="Capitec">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.partners-section {
+  position: relative;
+  background: linear-gradient(to right, rgb(28, 182, 87), rgba(57, 243, 40, 0.5)),
+              url('images/partners-bg.jpg') center/cover no-repeat;
+  color: #fff;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.partners-section h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.partners-section p {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto 50px auto;
+  opacity: 0.9;
+}
+
+.partners-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.partner-card {
+  background: rgba(255,255,255,0.1);
+  border-radius: 15px;
+  padding: 20px 30px;
+  transition: all 0.3s ease;
+  width: 150px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.partner-card img {
+  max-width: 100%;
+  max-height: 60px;
+ 
+}
+
+.partner-card:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-5px);
+}
+
+.partner-card:hover img {
+  opacity: 1;
+  transform: scale(1.05);
+}
+</style>
+
+<!-- ABOUT SECTION -->
+<section id="aboutLegacyLink" style="
+  background: linear-gradient(rgba(250, 249, 249, 0.75), rgb(252, 249, 249)), url('images/about-bg.jpg') center/cover no-repeat;
+  color: #070000;
+  padding: 80px 20px;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+">
+  <div style="max-width: 1000px; margin: 0 auto;">
+
+    <h2 style="font-weight:700; font-size:2.5rem; margin-bottom:15px;">🏛 <br/><span style="color:#2796c2;">LegacyLink</span></h2>
+    <p style="font-size:1.2rem; margin-bottom:50px; color:#0f0f0f;">Building a Legacy, One Child at a Time</p>
+
+    <p style="line-height:1.8; font-size:1.05rem; color:#0a0a0a; margin-bottom:30px;">
+      Legacy Link is a digital inheritance platform designed to help parents secure their children’s financial future — long before adulthood begins. Our mission is to make generational wealth planning simple, secure, and accessible for every family.
+    </p>
+
+    <p style="line-height:1.8; font-size:1.05rem; color:#0a0a0a; margin-bottom:40px;">
+      Through Legacy Link, parents can create inheritance funds for key life areas such as:
+    </p>
+
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px; margin-bottom:50px;">
+      <div style="background:#2796c2; padding:15px 25px; border-radius:8px; font-size:1.1rem;">🏠 Housing</div>
+      <div style="background:#2796c2; padding:15px 25px; border-radius:8px; font-size:1.1rem;">🎓 Education</div>
+      <div style="background:#2796c2; padding:15px 25px; border-radius:8px; font-size:1.1rem;">🚗 Cars  </div>
+      <div style="background:#2796c2; padding:15px 25px; border-radius:8px; font-size:1.1rem;">💼 Business</div>
+    
+      <div style="background:#2796c2; padding:15px 25px; border-radius:8px; font-size:1.1rem;">💰 Other</div>
+    </div>
+
+    <p style="line-height:1.8; font-size:1.05rem; color:#0a0000; margin-bottom:50px;">
+      These funds are safely managed by trusted banks and insurance partners, and can only be accessed by the child when they turn 19, ensuring financial maturity and responsibility.
+      <br><br>
+      We believe every child deserves to start adulthood with a strong financial foundation — and every parent deserves peace of mind knowing their legacy is protected.
+    </p>
+
+    <hr style="border:none; border-top:1px solid rgba(255,255,255,0.2); width:60%; margin:50px auto;">
+
+    <!-- Mission -->
+    <h3 style="font-weight:600; color:#2796c2;"> Our Mission</h3>
+    <p style="max-width:800px; margin:15px auto 40px; color:#0a0a0a; font-size:1.05rem;">
+      To empower families to build generational wealth through structured, transparent, and technology-driven inheritance planning.
+    </p>
+
+    <hr style="border:none; border-top:1px solid rgba(255,255,255,0.2); width:60%; margin:40px auto;">
+
+    <!-- Vision -->
+    <h3 style="font-weight:600; color:#2796c2;"> Our Vision</h3>
+    <p style="max-width:800px; margin:15px auto 40px; color:#070707; font-size:1.05rem;">
+      A world where every child steps into adulthood financially ready — breaking cycles of poverty and promoting lifelong stability.
+    </p>
+
+     <hr style="border:none; border-top:1px solid rgba(10, 0, 0, 0.993); width:60%; margin:40px auto;">
+
+    <!-- Vision -->
+    <h3 style="font-weight:600; color:#2796c2;"> Our Vision</h3>
+    <p style="max-width:800px; margin:15px auto 40px; color:#0a0a0a; font-size:1.05rem;">
+      A world where every child steps into adulthood financially ready — breaking cycles of poverty and promoting lifelong stability.
+    </p>
+
+    <hr style="border:none; border-top:1px solid rgb(5, 0, 0); width:60%; margin:40px auto;">
+
+    <!-- Promise -->
+    <h3 style="font-weight:600; color:#2796c2;">Our Promise</h3>
+    <ul style="list-style:none; padding:0; max-width:600px; margin:20px auto 40px; text-align:left;">
+      <li style="margin-bottom:10px;">• 100% secure fund management</li>
+      <li style="margin-bottom:10px;">• Trusted financial partners</li>
+      <li style="margin-bottom:10px;">• Transparent growth tracking</li>
+      <li style="margin-bottom:10px;">• Empowering financial education</li>
+    </ul>
+
+    <p style="font-style:italic; color:#2796c2; font-weight:500; margin-top:40px; font-size:1.1rem;">
+       LegacyLink — A Secure Place For Your Childs Tomorrow.
+    </p>
+
+  </div>
+</section>
+
+    <!-- Contact Us Section -->
+<section id="contactUs" class="contact-section" style="padding:50px 20px; background-color:#ffffffc9; font-family:'Poppins', sans-serif;">
+  <div style="max-width:1000px; margin:0 auto;">
+    <h2 style="text-align:center; font-weight:600; margin-bottom:20px;"><i class="fa-solid fa-envelope"></i> Contact </h2>
+    <p style="text-align:center; font-size:1.1rem; color:#259ff0; margin-bottom:40px;">
+      We’d love to hear from you! Whether you’re a parent looking to secure your child’s future, a financial institution interested in partnership, or an investor who believes in building generational wealth — our team is here to help.
+    </p>
+
+    <div style="display:flex; flex-wrap:wrap; gap:30px; justify-content:space-between;">
+      
+      <!-- Contact Details -->
+      <div style="flex:1 1 300px; background:#fff; padding:30px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+        <h3 style="margin-bottom:20px; font-weight:500;">Get in Touch</h3>
+        <p><strong>Email (General inquiries):</strong> <a href="mailto:teamlegacylink@gmail.com">teamlegacylink@gmail.com</a></p>
+        <p><strong>Partnerships:</strong> <a href="mailto:teamlegacylink@gmail.com">teamlegacylink@gmail.com</a></p>
+        <p><strong>Support:</strong> <a href="mailto:teamlegacylink@gmail.com">teamlegacylink@gmail.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+27686609737">+27 68 660 9737</a></p>
+        <p><strong>Address:</strong> 2 Mfebe Street, Johannesburg, South Africa</p>
+
+        <h4 style="margin-top:30px; font-weight:500;"> Working Hours</h4>
+        <p>Monday – Friday: 08:00 AM – 05:00 PM</p>
+        <p>Saturday & Sunday: Closed</p>
+      </div>
+
+      <!-- Contact Form -->
+      <div style="flex:1 1 300px; background:#fff; padding:30px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+        <h3 style="margin-bottom:20px; font-weight:500;">Let’s Build a Legacy Together</h3>
+        <p style="font-size:0.95rem; color:#555; margin-bottom:20px;">Fill in the form below and we’ll get back to you within 24–48 hours.</p>
+
+        <form id="contactForm">
+          <div style="margin-bottom:15px;">
+            <label for="contactName" style="display:block; margin-bottom:5px;">Full Name</label>
+            <input type="text" id="contactName" name="contactName" placeholder="Enter your full name" required style="width:100%; padding:10px; border-radius:5px; border:1px solid #ccc;">
+          </div>
+
+          <div style="margin-bottom:15px;">
+            <label for="contactEmail" style="display:block; margin-bottom:5px;">Email Address</label>
+            <input type="email" id="contactEmail" name="contactEmail" placeholder="Enter your email" required style="width:100%; padding:10px; border-radius:5px; border:1px solid #ccc;">
+          </div>
+
+          <div style="margin-bottom:15px;">
+            <label for="contactMessage" style="display:block; margin-bottom:5px;">Message</label>
+            <textarea id="contactMessage" name="contactMessage" rows="5" placeholder="Type your message here..." required style="width:100%; padding:10px; border-radius:5px; border:1px solid #ccc;"></textarea>
+          </div>
+
+          <button type="submit" style="background-color:#ffcc00; color:#000; border:none; padding:12px 25px; border-radius:8px; font-weight:600; cursor:pointer; width:100%; transition:0.3s;">Send Message</button>
+        </form>
+
+        <div id="contactSuccess" style="display:none; margin-top:15px; color:green; font-weight:500;">
+          Thank you! Your message has been sent.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 LegacyLink |  A Secure Place For Your Childs Tomorrow</p>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Support</a>
+      <a href="#">About</a>
+    </div>
+  </footer>
+
+  
+<script>
+   const contactForm = document.getElementById('contactForm');
+  const contactSuccess = document.getElementById('contactSuccess');
+
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Here you can integrate your backend email/API logic
+    contactForm.style.display = 'none';
+    contactSuccess.style.display = 'block';
+  });
+function calculateInvestment() {
+  const years = parseInt(document.getElementById('years').value);
+  const pkg = document.getElementById('package').value;
+  const asset = document.getElementById('asset').value;
+  const progressBar = document.getElementById('progressBar');
+  const result = document.getElementById('result');
+  const creditScore = document.getElementById('creditScore');
+
+  if (!years || years <= 0) {
+    result.textContent = "Please enter a valid number of years.";
+    creditScore.textContent = "";
+    progressBar.style.width = "0%";
+    return;
+  }
+
+  // monthly value by package
+  const packages = {
+    standard: 350,
+    silver: 750,
+    gold: 1100,
+    premium: 1500
+  };
+
+  const baseAmount = packages[pkg];
+  const total = baseAmount * 12 * years;
+  const growthRate = 0.1; 
+  const growth = total * (1 + growthRate * years);
+
+  // reset and animate progress bar
+  progressBar.style.transition = "none";
+  progressBar.style.width = "0%";
+  setTimeout(() => {
+    progressBar.style.transition = "width 1.5s ease-in-out";
+    progressBar.style.width = `${Math.min((growth / 50000) * 100, 100)}%`;
+  }, 100);
+
+  // show results
+  result.innerHTML = `Your projected <strong>${asset}</strong> value after ${years} years is <strong>R${growth.toFixed(2)}</strong>.`;
+  creditScore.innerHTML = `Simulated Credit Score: <strong>${Math.min(850, 600 + years * 12)}</strong>`;
+}
+
+const modal = document.getElementById("assetModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalText = document.getElementById("modalText");
+const closeBtn = document.querySelector(".close-btn");
+const assetInfo = {
+  house: {
+    title: "House Investment",
+    text: "Investing in housing builds long-term wealth and provides security for your loved ones. Flexible payments and insurance coverage options included."
+  },
+  car: {
+    title: "Car Investment",
+    text: "Owning your car shouldn’t feel impossible. Build ownership over time while boosting your credit score with our Car Plan."
+  },
+  business: {
+    title: "Business Investment",
+    text: "LegacyLink helps entrepreneurs expand or start their businesses with guided investment packages and mentorship support."
+  },
+  education: {
+    title: "Education Investment",
+    text: "Education is the foundation of legacy. Save for tuition, training, or your child’s future education with our Education Plan."
+  }
+};
+
+// Open modal
+function learnMore(asset) {
+  modalTitle.textContent = assetInfo[asset].title;
+  modalText.textContent = assetInfo[asset].text;
+  modal.style.display = "flex";
+}
+
+// Close modal
+closeBtn.onclick = () => modal.style.display = "none";
+window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; }
+
+function investNow(asset) {
+  alert(`You clicked Invest Now for ${asset.charAt(0).toUpperCase() + asset.slice(1)}. Next step: Redirect to registration or investment form.`);
+  // Here you can later link to your investment flow page
+  // e.g., window.location.href = 'investment-form.html?asset=' + asset;
+}
+
+function goToInvest(packageName) {
+  window.location.href = `investnow.html?package=${encodeURIComponent(packageName)}`;
+}
+
+</script>
+</body>
+</html>

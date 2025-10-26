@@ -1,0 +1,134 @@
+/* General body styling */
+body {
+  background-image: url('images/login\ background.jpg');
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+/*logo styles*/
+.logo {
+  width: 80px;                
+  height: auto;
+  display: block;
+  margin: 0 auto 20px auto;   
+  border-radius: 10px;        
+}
+/* Container for the form */
+.container {
+  background: rgba(255, 255, 255, 0.25); 
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); 
+  padding: 40px 60px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+}
+
+/* Header styling */
+h2 {
+  text-align: center;
+  color: #2796c2; /* keeps it black */
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif; /* clean & professional */
+  font-weight: 600; /* semi-bold for a polished look */
+  font-size: 2rem; /* adjust size as needed */
+  margin-bottom: 20px; /* space below the heading */
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  color:#2796c2; 
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Input field styling */
+.input-group {
+  margin-bottom: 20px;
+}
+
+label {
+  color:#2796c2;
+  font-weight: 600;
+}
+
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+  outline: 2px solid #2796c2;
+   box-sizing: border-box;
+}
+
+/* Button styling */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: rgba(39, 150, 194, 0.9); 
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background-color: rgba(18, 124, 167, 1);
+}
+
+/* Message styling */
+#message {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+  color: #F0564C; 
+}
+
+#message.correct {
+  color: #4CAF50; 
+}
+.forgot-password {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.forgot-password a {
+    font-size: 0.9rem;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+.btn {
+  align-items: center;
+  display: inline-block;
+  background-color :#2796c2;  /* button color */
+  color: #fff;
+  padding: 10px 70px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background-color: #333;
+}
