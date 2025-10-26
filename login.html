@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>Login Form</title>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container">
+          <img src="images/logo.jpg" alt="App Logo" class="logo">
+      
+        <h1>Log In</h1>
+        <form>
+            <div class="input-group">
+                <label for="usernameInput">Username:</label>
+                <input type="text" id="usernameInput" required />
+            </div>
+            <div class="input-group">
+                <label for="passwordInput">Password:</label>
+                <input type="password" id="passwordInput" required />
+            </div>
+            <p id="message"></p>
+            <button type="button" onclick="verifyUser()">Log In</button>
+            <div class="forgot-password">
+    <a href="#" onclick="forgotPassword()">Forgot Password?</a>
+</div>
+        </form>
+    </div>
+    <script>
+  function verifyUser() {
+    const username = document.getElementById("usernameInput").value;
+    const password = document.getElementById("passwordInput").value;
+    const message = document.getElementById("message");
+
+    let storedUser;
+    try {
+        storedUser = JSON.parse(localStorage.getItem("user"));
+    } catch {
+        storedUser = null;
+    }
+     if (!storedUser) {
+        message.textContent = "No account found. Please register first.";
+        message.style.color = "red";
+        return;
+    }
+      // use username or email for login;
+    if ((username === storedUser.username || username === storedUser.username) && password === storedUser.password) {
+      message.textContent = "Login successful! Redirecting...";
+      message.style.color = "green";
+      setTimeout(() => {
+        window.location.href ="dashboard.html"; 
+      }, 1500);
+    } else {
+      message.textContent = "Incorrect username or password.";
+      message.style.color = "red";
+    }
+ }
+ function forgotPassword() {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const message = document.getElementById("message");
+
+    if (!storedUser) {
+        message.textContent = "No account found. Please register first.";
+        message.style.color = "red";
+        return;
+    }
+
+    //display the password
+    message.textContent = `Your password is: ${storedUser.password}`;
+    message.style.color = "blue"; }
+</script>
+</body>
+</html>
