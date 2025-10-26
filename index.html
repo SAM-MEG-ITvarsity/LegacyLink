@@ -35,18 +35,23 @@
     const password = document.getElementById("passwordInput").value;
     const message = document.getElementById("message");
 
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-
-    if (!storedUser) {
-      message.textContent = "No account found. Please register first.";
-      return;
-
+    let storedUser;
+    try {
+        storedUser = JSON.parse(localStorage.getItem("user"));
+    } catch {
+        storedUser = null;
+    }
+     if (!storedUser) {
+        message.textContent = "No account found. Please register first.";
+        message.style.color = "red";
+        return;
+    }
       // use username or email for login;
-    if ((username === storedUser.email || username === storedUser.email) && password === storedUser.password) {
+    if ((username === storedUser.username || username === storedUser.username) && password === storedUser.password) {
       message.textContent = "Login successful! Redirecting...";
       message.style.color = "green";
       setTimeout(() => {
-        window.location.href = "dashboard.html"; 
+        window.location.href ="dashboard.html"; 
       }, 1500);
     } else {
       message.textContent = "Incorrect username or password.";
@@ -65,9 +70,7 @@
 
     //display the password
     message.textContent = `Your password is: ${storedUser.password}`;
-    message.style.color = "blue";
-}
-
-    </script>
+    message.style.color = "blue"; }
+</script>
 </body>
 </html>
