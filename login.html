@@ -24,9 +24,7 @@
             </div>
             <p id="message"></p>
             <button type="button" onclick="verifyUser()">Log In</button>
-            <div class="forgot-password">
-    <a href="#" onclick="forgotPassword()">Forgot Password?</a>
-</div>
+            
         </form>
     </div>
     <script>
@@ -58,19 +56,7 @@
       message.style.color = "red";
     }
  }
- function forgotPassword() {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const message = document.getElementById("message");
 
-    if (!storedUser) {
-        message.textContent = "No account found. Please register first.";
-        message.style.color = "red";
-        return;
-    }
-
-    //display the password
-    message.textContent = `Your password is: ${storedUser.password}`;
-    message.style.color = "blue"; }
 </script>
 </body>
 </html>
