@@ -356,7 +356,8 @@ let savedInvestments = [];
     document.getElementById('invoiceAmount').innerText = `R${amount}`;
     document.getElementById('invoiceInstitution').innerText = institution.charAt(0).toUpperCase() + institution.slice(1);
     
-alert(`Saved: ${investmentType} - ${packageType} R(${amount}) at ${institution}`);
+alert(`Saved: ${investmentType} - ${packageType} R${amount} at ${institution}`);
+
 
 // Move to next step
     const fieldsets = document.querySelectorAll(".form-step");
@@ -526,12 +527,6 @@ user.totalInvested = (user.totalInvested || 0) + selectedAmount;
 // Save back to localStorage
 localStorage.setItem("user", JSON.stringify(user));
 
-// Get existing investments or create new array
-let investments = JSON.parse(localStorage.getItem('investments')) || [];
-investments.push(newInvestment);
-
-// Save updated list
-localStorage.setItem('investments', JSON.stringify(investments));
 
 // Optional: store total invested
 const totalInvested = investments.reduce((sum, i) => sum + i.invested, 0);
