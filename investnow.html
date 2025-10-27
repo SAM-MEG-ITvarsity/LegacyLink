@@ -10,20 +10,15 @@
  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"rel="stylesheet"/>
    <link rel="stylesheet" href="investnow.css">
 </head>
- 
+
 
 <body>
-
 <div class="hero">
   <h1>Secure Your Child’s Future with LegacyLink</h1>
   <p>Simple. Safe. Smart Investments for South African Families.</p>
-  <button onclick="goBack()">⬅ Back</button>
+  </div>
 
-</div>
-
-
-
-  <h2>LegacyLink Investment Registration Form</h2>
+<h2>LegacyLink Investment Registration Form</h2>
  <div class="progress-container">
     <div class="progress-bar">
       <div class="step active">
@@ -58,7 +53,7 @@
 
    
  
-  <!-- STEP 1: Investment Selection -->
+ <!-- STEP 1: Investment Selection -->
 <fieldset class="form-step active">
   <legend>Choose Your Investment</legend>
 
@@ -99,10 +94,10 @@
     <option value="miway">MiWay Insurance</option>
   </select>
 
- <div class="button-group">
+  <div class="button-group">
+    <!-- Next button -->
     <button type="button" id="nextStep" style="padding:10px 20px; margin-top:12px;">Next</button>
   </div>
-
 </fieldset>
 
     <!-- STEP 2 -->
@@ -268,13 +263,13 @@
     <h2>Payment Details</h2>
 
     <!-- Invoice Section -->
-    <div id="invoice">
-      <h3>Invoice</h3>
-      <p>Package: <span id="invoicePackage">Gold House Package</span></p>
-      <p>Amount: <span id="invoiceAmount">R12,500</span></p>
-      <hr>
-    </div>
-
+<div id="invoice">
+  <h3>Invoice</h3>
+  <p>Package: <span id="invoicePackage">-</span></p>
+  <p>Amount: <span id="invoiceAmount">-</span></p>
+  <p>Institution: <span id="invoiceInstitution">-</span></p>
+  <hr>
+</div>
     <!-- Payment Form -->
     <form id="fullPaymentForm">
       <div class="form-group">
@@ -316,46 +311,93 @@
 
 <script>
 
-  
+    
+document.addEventListener("DOMContentLoaded", function() {
 
+// map package names to amounts
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const packageAmounts = {
-      standard: 350,
-      silver: 750,
-      gold: 1100,
-      premium: 1500
-    };
+let savedInvestments = [];
+  const packageAmounts = {
+    standard: 350,
+    silver: 750,
+    gold: 1100,
+    premium: 1500
+  };
 
-    const nextBtn = document.getElementById('nextStep');
-    nextBtn.addEventListener('click', () => {
-      const investmentType = document.getElementById('investmentType').value;
-      const packageType = document.getElementById('packageType').value;
-      const institution = document.getElementById('institution').value;
+  // handle Next button click
+  document.getElementById('nextStep').addEventListener('click', () => {
+    const investmentType = document.getElementById('investmentType').value;
+    const packageType = document.getElementById('packageType').value;
+    const institution = document.getElementById('institution').value;
 
-      if(!investmentType || !packageType || !institution){
-        alert('Please select all fields before proceeding.');
-        return;
-      }
+    if(!investmentType || !packageType || !institution){
+      alert('Please select all fields before proceeding.');
+      return;
+    }
 
-      const amount = packageAmounts[packageType];
+    const amount = packageAmounts[packageType];
 
-      // Save selections to localStorage
-      localStorage.setItem('investmentType', investmentType);
-      localStorage.setItem('packageType', packageType);
-      localStorage.setItem('packageAmount', amount);
-      localStorage.setItem('institution', institution);
+    // save to localStorage
+    localStorage.setItem('investmentType', investmentType);
+    localStorage.setItem('packageType', packageType);
+    localStorage.setItem('packageAmount', amount);
+    localStorage.setItem('institution', institution);
 
-      alert(Saved: ${investmentType} - ${packageType} (R${amount}) at ${institution});
-
-      // Optional: navigate to the next step/page
-      // window.location.href = 'profile.html';
+// ✅ Push to array safely
+    savedInvestments.push({
+      investmentType,
+      packageType,
+      amount,
+      institution
     });
-  });
 
+// Update invoice section
+    document.getElementById('invoicePackage').innerText = `${packageType.charAt(0).toUpperCase() + packageType.slice(1)} ${investmentType.charAt(0).toUpperCase() + investmentType.slice(1)} Package`;
+    document.getElementById('invoiceAmount').innerText = `R${amount}`;
+    document.getElementById('invoiceInstitution').innerText = institution.charAt(0).toUpperCase() + institution.slice(1);
+    
+alert(`Saved: ${investmentType} - ${packageType} R(${amount}) at ${institution}`);
 
+// Move to next step
+    const fieldsets = document.querySelectorAll(".form-step");
+    fieldsets[0].classList.remove("active");
+    fieldsets[1].classList.add("active");
+
+    // Optional: highlight step 2 indicator
     const steps = document.querySelectorAll(".step");
-const progressLine = document.querySelector(".progress-line::before");
+    steps[1].classList.add("active");
+
+    const form = document.getElementById("fullPaymentForm");
+const successMsg = document.getElementById("successMessage");
+const nextPaymentDate = document.getElementById("nextPaymentDate");
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // Show success message
+    form.style.display = "none";
+    successMsg.style.display = "block";
+
+    // Add next payment date
+    const today = new Date();
+    today.setDate(today.getDate() + 30);
+    nextPaymentDate.textContent = today.toLocaleDateString("en-ZA");
+
+    // ✅ Save investments to localStorage for profile page
+    localStorage.setItem('investments', JSON.stringify(savedInvestments));
+
+    // Redirect to profile.html after 3 seconds
+    setTimeout(() => {
+        window.location.href = 'profile.html';
+      },3000);
+});
+
+  });
+
+});
+
+const steps = document.querySelectorAll(".step");
+const progressLine = document.querySelector(".progress-line");
 const fieldsets = document.querySelectorAll(".form-step");
 let currentStep = 0;
 
@@ -435,24 +477,36 @@ cardNumber.addEventListener("input", () => {
   else cardIcon.className = "fa-solid fa-credit-card";
 });
 
-// Payment form submission
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  // Hide form, show success
   form.style.display = "none";
   successMsg.style.display = "block";
 
-  // Next payment 30 days from now
   const today = new Date();
   today.setDate(today.getDate() + 30);
   nextPaymentDate.textContent = today.toLocaleDateString("en-ZA");
-});
 
+  // Redirect to profile page after 3 seconds
+  setTimeout(() => {
+    window.location.href = 'profile.html';
+ },3000);
+});
 // Load user or create default
 let user = JSON.parse(localStorage.getItem("user")) || { investments: [], totalInvested: 0 };
-
+const selectedPackage = localStorage.getItem('packageType');
+const selectedAmount = Number(localStorage.getItem('packageAmount'));
 // Create new investment
+// Load existing investments or create a new array
+const savedInvestments = JSON.parse(localStorage.getItem('investments')) || [];
+
+// Build the new investment object
+const investmentType = localStorage.getItem('investmentType');
+const packageType = localStorage.getItem('packageType');
+const amount = Number(localStorage.getItem('packageAmount'));
+const institution = localStorage.getItem('institution');
+
+//create new investment
 const newInvestment = {
   id: Date.now(),          // unique ID
   name: 'Housing Plan',

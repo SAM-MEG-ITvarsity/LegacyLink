@@ -13,25 +13,31 @@
 <body>
 
   <!--Navbar -->
-  <header>
-    <div class="logo"><i class="fa-solid fa-link"></i> LegacyLink</div>
-    <nav>
-    <a href="#aboutLegacyLink"><i class="fa-solid fa-info-circle"></i> About</a>&nbsp;&nbsp;&nbsp;
-    <a href="#contactUs"><i class="fa-solid fa-envelope"></i> Contact</a>&nbsp;&nbsp;&nbsp;
-    <a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>&nbsp;&nbsp;&nbsp;
+  <header class="navbar">
+  <div class="logo"><i class="fa-solid fa-link"></i> LegacyLink</div>
 
-      <button onclick="window.location.href='login.html'" class="logout-btn">
-        <i class="fa-solid fa-right-from-bracket"></i> Logout
-      </button>
-    </nav>
-  </header>
+  <div class="menu-toggle" id="menuToggle">
+    <i class="fa-solid fa-bars"></i>
+  </div>
 
-  <!-- Hero -->
-  <section class="hero">
-    <h1>Welcome, <span id="userName">Samantha</span></h1>
-    <p>Your financial future is in progress. Manage, plan, and grow your legacy all in one place.</p>
+  <nav id="navbarLinks">
+    <a href="#aboutLegacyLink"><i class="fa-solid fa-info-circle"></i> About</a>
+    <a href="#contactUs"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
+
+    <button onclick="window.location.href='login.html'" class="logout-btn">
+      <i class="fa-solid fa-right-from-bracket"></i> Logout
+    </button>
+  </nav>
+</header>
+
+
+ <!-- Hero -->
+<section class="hero">
+  <h1>Welcome, <span id="userName"></span></h1>
+  <p>Your financial future is in progress. Manage, plan, and grow your legacy all in one place.</p>
   <button class="invest-btn" onclick="goToInvest('car')">Invest Now</button>
-  </section>
+</section>
 
 <!-- Modal -->
 <div id="assetModal" class="asset-modal">
@@ -485,6 +491,35 @@ function investNow(asset) {
 function goToInvest(packageName) {
   window.location.href = `investnow.html?package=${encodeURIComponent(packageName)}`;
 }
+
+  const menuToggle = document.getElementById('menuToggle');
+  const navbarLinks = document.getElementById('navbarLinks');
+
+  menuToggle.addEventListener('click', () => {
+    navbarLinks.classList.toggle('active');
+    const icon = menuToggle.querySelector('i');
+    icon.classList.toggle('fa-bars');
+    icon.classList.toggle('fa-xmark');
+  });
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const userNameElement = document.getElementById("userName");
+
+    if (userData && userData.fullname) {
+      // Show only the first name (optional)
+      const firstName = userData.fullname.split(" ")[0];
+      userNameElement.textContent = firstName + "!";
+    } else {
+      userNameElement.textContent = "Guest!";
+    }
+  });
+
+  function goToInvest(plan) {
+    window.location.href = "investnow.html?plan=" + plan;
+  }
+
 
 </script>
 </body>

@@ -1,80 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <title>Login Form</title>
-    <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- STEP 1: Investment Selection -->
+<fieldset class="form-step active">
+  <legend>Choose Your Investment</legend>
 
-</head>
-<body>
-    <div class="container">
-          <img src="images/logo.jpg" alt="App Logo" class="logo">
-      
-        <h1>Log In</h1>
-        <form>
-            <div class="input-group">
-                <label for="usernameInput">Username:</label>
-                <input type="text" id="usernameInput" required />
-            </div>
-            <div class="input-group">
-                <label for="passwordInput">Password:</label>
-                <input type="password" id="passwordInput" required />
-            </div>
-            <p id="message"></p>
-            <button type="button" onclick="verifyUser()">Log In</button>
-            
-            <div class="forgot-password">
-    <a href="#" onclick="forgotPassword()">Forgot Password?</a>
-</div> 
-        </form>
-    </div>
-    <script>
-  function verifyUser() {
-    const username = document.getElementById("usernameInput").value;
-    const password = document.getElementById("passwordInput").value;
-    const message = document.getElementById("message");
+  <!-- Investment Type -->
+  <label for="investmentType">Investment Type:</label>
+  <select id="investmentType" name="investmentType" required>
+    <option value="" disabled selected>Select investment type</option>
+    <option value="house">House</option>
+    <option value="car">Car</option>
+    <option value="education">Education</option>
+    <option value="business">Business</option>
+  </select>
 
-    let storedUser;
-    try {
-        storedUser = JSON.parse(localStorage.getItem("user"));
-    } catch {
-        storedUser = null;
-    }
-     if (!storedUser) {
-        message.textContent = "No account found. Please register first.";
-        message.style.color = "red";
+  <!-- Package -->
+  <label for="packageType">Package:</label>
+  <select id="packageType" name="packageType" required>
+    <option value="" disabled selected>Select package</option>
+    <option value="standard">Standard (R350)</option>
+    <option value="silver">Silver (R750)</option>
+    <option value="gold">Gold (R1100)</option>
+    <option value="premium">Premium (R1500)</option>
+  </select>
+
+  <!-- Institution -->
+  <label for="institution">Investment Institution:</label>
+  <select id="institution" name="institution" required>
+    <option value="" disabled selected>Select institution</option>
+    <option value="fnb">FNB</option>
+    <option value="absa">ABSA</option>
+    <option value="standardbank">Standard Bank</option>
+    <option value="nedbank">Nedbank</option>
+    <option value="capitec">Capitec</option>
+    <option value="investec">Investec Bank Ltd</option>
+    <option value="sanlam">Sanlam Group</option>
+    <option value="oldmutual">Old Mutual Ltd</option>
+    <option value="santam">Santam Ltd</option>
+    <option value="hollard">Hollard Insurance Company Ltd</option>
+    <option value="miway">MiWay Insurance</option>
+  </select>
+
+  <div class="button-group">
+    <button type="button" id="nextStep" style="padding:10px 20px; margin-top:12px;">Next</button>
+  </div>
+</fieldset>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const packageAmounts = {
+      standard: 350,
+      silver: 750,
+      gold: 1100,
+      premium: 1500
+    };
+
+    const nextBtn = document.getElementById('nextStep');
+    nextBtn.addEventListener('click', () => {
+      const investmentType = document.getElementById('investmentType').value;
+      const packageType = document.getElementById('packageType').value;
+      const institution = document.getElementById('institution').value;
+
+      if(!investmentType || !packageType || !institution){
+        alert('Please select all fields before proceeding.');
         return;
-    }
-      // use username or email for login;
-    if ((username === storedUser.username || username === storedUser.username) && password === storedUser.password) {
-      message.textContent = "Login successful! Redirecting...";
-      message.style.color = "green";
-      setTimeout(() => {
-        window.location.href ="dashboard.html"; 
-      }, 1500);
-    } else {
-      message.textContent = "Incorrect username or password.";
-      message.style.color = "red";
-    }
- }
- 
- function forgotPassword() {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const message = document.getElementById("message");
+      }
 
-    if (!storedUser) {
-        message.textContent = "No account found. Please register first.";
-        message.style.color = "red";
-        return;
-    }
+      const amount = packageAmounts[packageType];
 
-    //display the password
-    message.textContent = `Your password is: ${storedUser.password}`;
-    message.style.color = "blue";
-}
+      // Save selections to localStorage
+      localStorage.setItem('investmentType', investmentType);
+      localStorage.setItem('packageType', packageType);
+      localStorage.setItem('packageAmount', amount);
+      localStorage.setItem('institution', institution);
 
+      alert(Saved: ${investmentType} - ${packageType} (R${amount}) at ${institution});
+
+      // Optional: navigate to the next step/page
+      // window.location.href = 'profile.html';
+    });
+  });
 </script>
-</body>
-</html>

@@ -152,7 +152,7 @@
         <div style="height:18px"></div>
 
         <div class="about investments">
-          <h3 style="margin-bottom:6px">Investments</h3>
+          <h3 style="margin-bottom:6px">Active Plans</h3>
 
           <div id="investmentsList">
             <!-- investment cards injected by JS -->
@@ -209,99 +209,65 @@
   </div>
 
   <script>
-   // ✅ Load user data from localStorage or fallback to mock data
-let storedUser = JSON.parse(localStorage.getItem("user"));
-if (!storedUser) {
-  alert("No user data found — please register first.");
-  storedUser = {
-    fullname: "Samantha-Megan Campher",
-    email: "sample@email.com",
-    phone: "0000000000",
-  };
+// -------------------------
+// Helper: format money
+function money(amount){
+  return 'R' + Number(amount).toLocaleString('en-ZA', {minimumFractionDigits:2, maximumFractionDigits:2});
 }
 
-// ✅ Load investments or use mock data
-const storedInvestments = JSON.parse(localStorage.getItem('investments')) || [
+// -------------------------
+// Load user from localStorage or fallback
+let user = JSON.parse(localStorage.getItem('user')) || { investments: [], totalInvested:0 };
+
+// -------------------------
+// ✅ Load investments from localStorage or fallback to mock data
+let storedInvestments = JSON.parse(localStorage.getItem('investments')) || [
   {id:1, name:'Housing Plan', tier:'Silver', invested:10000, roi:8.2, status:'Active', lastUpdate:'2 days ago'},
   {id:2, name:'Education Fund', tier:'Gold', invested:20000, roi:12.1, status:'Active', lastUpdate:'5 days ago'},
   {id:3, name:'Vehicle Savings', tier:'Standard', invested:5200, roi:5.0, status:'Active', lastUpdate:'1 week ago'}
 ];
 
-// ✅ Build the user object dynamically
-const user = {
-  name: storedUser.fullname,
-  initials: storedUser.fullname ? storedUser.fullname.split(" ").map(w => w[0]).join("").toUpperCase().slice(0,2) : "U",
-  subtitle: 'Investor | Future Builder',
-  joined: new Date().toLocaleString('default', { month: 'short', year: 'numeric' }),
-  bio: 'I’m building a legacy of financial stability and faith for my children. Every investment is a seed for the future 🌱.',
-  totalInvested: 45200,
-  activePlans: storedInvestments.length,
-  growth: 14.2,
-  legacyPercent: 65,
-  legacyGap: 15000,
-  avgRoi: 8.4,
-  nextPayout: 'Nov 10, 2025',
-  investments: storedInvestments,
-  activity: [
-    {time:'Yesterday', text:'You logged in successfully', icon:'✅'},
-    {time:'3 days ago', text:'Account created successfully', icon:'🎉'}
-  ]
-};
+// Compute totals dynamically
+const totalInvested = storedInvestments.reduce((sum, inv)=> sum + inv.invested, 0);
+const activePlans = storedInvestments.length;
 
-// ✅ Populate the page dynamically
-const money = (v)=> 'R' + v.toLocaleString('en-ZA');
+// Optional: portfolio growth calculation (average ROI)
+const growth = storedInvestments.length > 0 ? 
+               (storedInvestments.reduce((sum, inv)=> sum + inv.roi, 0) / storedInvestments.length).toFixed(1) 
+               : 0;
 
-document.getElementById('fullName').childNodes[0].nodeValue = user.name + ' ';
-document.getElementById('subtitle').textContent = user.subtitle;
-document.getElementById('joined').textContent = user.joined;
-document.getElementById('bio').textContent = user.bio;
+// Update user object
+user.investments = storedInvestments;
+user.totalInvested = totalInvested;
+user.activePlans = activePlans;
+user.growth = growth;
+
+// Save user back to localStorage
+localStorage.setItem('user', JSON.stringify(user));
+
+// -------------------------
+// ✅ Update UI summary cards
 document.getElementById('totalInvested').textContent = money(user.totalInvested);
 document.getElementById('activePlans').textContent = user.activePlans;
 document.getElementById('growth').textContent = (user.growth>0?'+':'')+user.growth+'%';
-document.getElementById('avatar').textContent = user.initials;
-document.getElementById('avgRoi').textContent = user.avgRoi + '%';
-document.getElementById('nextPayout').textContent = user.nextPayout;
-document.getElementById('percentLabel').textContent = user.legacyPercent + '%';
-document.getElementById('meterText').textContent = 'You are R' + user.legacyGap.toLocaleString('en-ZA') + ' away from your next milestone 🎯';
 
-// ✅ Render investments dynamically
-const invRoot = document.getElementById('investmentsList');
-invRoot.innerHTML = ''; // clear
-user.investments.forEach(inv=>{
-  const el = document.createElement('div');
-  el.className='invest-card';
-  el.innerHTML = `
-    <div class="invest-left">
-      <div class="plan-badge" style="background:linear-gradient(180deg,rgba(212,180,131,0.14),rgba(163,217,200,0.04));width:56px;height:56px;border-radius:12px">${inv.tier.charAt(0)}</div>
-      <div class="plan-info">
-        <h4>${inv.name} <small style="color:var(--muted);font-weight:500">• ${inv.tier}</small></h4>
-        <p>Invested: <strong>${money(inv.invested)}</strong> • ROI: ${inv.roi}%</p>
-      </div>
-    </div>
-    <div class="plan-actions">
-      <button onclick="viewDetails(${inv.id})">View Details</button>
-    </div>
+// -------------------------
+// ✅ Populate investments table dynamically
+const tbody = document.getElementById('investmentsTable').querySelector('tbody');
+tbody.innerHTML = ''; // clear table first
+storedInvestments.forEach((inv, index)=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td>${index+1}</td>
+    <td>${inv.name}</td>
+    <td>${inv.tier}</td>
+    <td>${money(inv.invested)}</td>
+    <td>${inv.roi}%</td>
+    <td>${inv.status}</td>
+    <td>${inv.lastUpdate}</td>
   `;
-  invRoot.appendChild(el);
+  tbody.appendChild(tr);
 });
-
-// ✅ Render activity
-const actRoot = document.getElementById('activityList');
-actRoot.innerHTML = '';
-user.activity.forEach(a=>{
-  const it = document.createElement('div');
-  it.className='activity-item';
-  it.innerHTML = `
-    <div class="act-icon">${a.icon}</div>
-    <div>
-      <div class="act-text">${a.text}</div>
-      <div class="act-time">${a.time}</div>
-    </div>
-  `;
-  actRoot.appendChild(it);
-});
-
-
-  </script>
+</script>
 </body>
 </html>
