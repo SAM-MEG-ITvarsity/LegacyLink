@@ -8,7 +8,7 @@ body {
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  color: #003366;
+  color: #2796c2;
 }
 header {
   background-color: #2796c2;
@@ -67,7 +67,7 @@ nav a:hover {
 .hero {
   text-align: center;
   padding: 60px 20px 30px;
-  background: linear-gradient(120deg, #003366, #0059b3);
+  background: linear-gradient(120deg, #003366, #2796c2);
   color: #fff;
   width: 100%;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -306,7 +306,7 @@ fieldset div {
   left: 10%;
   height: 4px;
   width: 0%;
-  background: #0059b3;
+  background: #2796c2;
   transition: width 0.5s ease;
   z-index: 1;
 }
@@ -347,7 +347,7 @@ fieldset div {
   left: 0;
   height: 4px;
   width: 0%;
-  background: #0059b3;
+  background: #2796c2;
   transition: width 0.4s ease;
   z-index: 1;
 }
@@ -361,7 +361,7 @@ fieldset div {
 
 .step .number {
   background: #c9d6e2;
-  color: #003366;
+  color:#86d8f8;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -373,7 +373,7 @@ fieldset div {
 }
 
 .step.active .number {
-  background: #0059b3;
+  background: #2796c2;
   color: #fff;
   transform: scale(1.1);
   box-shadow: 0 0 10px rgba(0, 89, 179, 0.4);
@@ -438,7 +438,7 @@ fieldset div {
 }
 
 .step .number {
-  background-color: #003366;
+  background-color: #2796c2;
   color: white;
   border-radius: 50%;
   width: 25px;
@@ -451,19 +451,21 @@ fieldset div {
 
 .step i {
   font-size: 20px;
-  color: #0059b3;
+  color: #2796c2;
 }
 #paymentOverlay {
-  display: none; 
+  display: none;            /* ✅ keeps it hidden on page load */
   position: fixed;
-  inset: 0;
-  background-color: rgba(0,0,0,0.85);
-  z-index: 2000;
-  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.6);
   justify-content: center;
   align-items: center;
-  padding: 20px;
-}
+   z-index: 9999;
+ }
+
 
 .overlay-content {
   background: #fff;
@@ -486,26 +488,38 @@ fieldset div {
   cursor: pointer;
   transition: color 0.3s;
 }
-#closeOverlay:hover { color: #003366; }
+#closeOverlay:hover { 
+  color: #2796c2; 
+}
 
-.overlay-content h2 { margin-bottom: 20px; color: #003366; font-size: 24px; }
-#invoice { text-align: left; background: #f1f1f1; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-#invoice h3 { margin-top: 0; }
+.overlay-content h2 {
+   margin-bottom: 20px; 
+   color: #2796c2;
+   font-size: 24px;
+   }
+#invoice {
+   text-align: left; 
+   background: #f1f1f1;
+    padding: 15px; 
+    border-radius: 8px; 
+    margin-bottom: 20px; }
+#invoice h3 { 
+  margin-top: 0; }
 
 .form-group { margin-bottom: 18px; text-align: left; }
-.form-group label { display: block; font-weight: 600; margin-bottom: 6px; color: #003366; }
+.form-group label { display: block; font-weight: 600; margin-bottom: 6px; color:#2796c2 ; }
 .form-group input { width: 100%; padding: 10px 12px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; box-sizing: border-box; transition: border 0.3s; }
-.form-group input:focus { border-color: #0059b3; outline: none; }
+.form-group input:focus { border-color: #2796c2; outline: none; }
 
 .form-row { display: flex; gap: 15px; }
 .form-row .half { flex: 1; }
 
-.pay-btn { width: 100%; padding: 12px 0; border: none; border-radius: 8px; background-color: #003366; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s; }
-.pay-btn:hover { background-color: #0059b3; }
+.pay-btn { width: 100%; padding: 12px 0; border: none; border-radius: 8px; background-color: #2796c2; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s; }
+.pay-btn:hover { background-color:#2796c2; }
 
 #successMessage { text-align: center; color: #006600; }
 
 .card-input { position: relative; }
-.card-input i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 24px; color: #0059b3; }
+.card-input i { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 24px; color: #2796c2; }
 
 @media (max-width: 480px) { .form-row { flex-direction: column; } }

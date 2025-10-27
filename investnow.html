@@ -17,6 +17,8 @@
 <div class="hero">
   <h1>Secure Your Child’s Future with LegacyLink</h1>
   <p>Simple. Safe. Smart Investments for South African Families.</p>
+  <button onclick="goBack()">⬅ Back</button>
+
 </div>
 
 
@@ -54,7 +56,9 @@
  </div>
   <form id="multiStepForm">
 
-    <!-- STEP 1: Investment Selection -->
+   
+ 
+  <!-- STEP 1: Investment Selection -->
 <fieldset class="form-step active">
   <legend>Choose Your Investment</legend>
 
@@ -72,9 +76,10 @@
   <label for="packageType">Package:</label>
   <select id="packageType" name="packageType" required>
     <option value="" disabled selected>Select package</option>
-    <option value="standard">Standard</option>
-    <option value="gold">Gold</option>
-    <option value="platinum">Platinum</option>
+    <option value="standard">Standard (R350)</option>
+    <option value="silver">Silver (R750)</option>
+    <option value="gold">Gold (R1100)</option>
+    <option value="premium">Premium (R1500)</option>
   </select>
 
   <!-- Institution -->
@@ -93,11 +98,13 @@
     <option value="hollard">Hollard Insurance Company Ltd</option>
     <option value="miway">MiWay Insurance</option>
   </select>
-  <div class="button-group">
-   
-    <button type="button" class="next">Next</button>
+
+ <div class="button-group">
+    <button type="button" id="nextStep" style="padding:10px 20px; margin-top:12px;">Next</button>
   </div>
+
 </fieldset>
+
     <!-- STEP 2 -->
     <fieldset class="form-step">
       <legend>Parent / Guardian Information</legend>
@@ -186,7 +193,7 @@
          <div style="border:1px solid #000; padding:10px; height:400px; overflow-y:scroll;">
 
          <h3>LegacyLink – Terms and Conditions of Investment</h3>
-        <p><strong>Last updated:</strong> [Insert Date]</p>
+        <p><strong>Last updated:</strong> 2025/10/27</p>
 
         <p>Welcome to LegacyLink, a digital investment and financial planning platform designed to help families build a sustainable financial future for the next generation. These Terms and Conditions (“Terms”) constitute a legally binding agreement between you (“Investor,” “User,” or “Client”) and LegacyLink (Pty) Ltd (“LegacyLink,” “we,” “our,” or “us”). By accessing or using our services, website, or mobile application, you acknowledge that you have read, understood, and agree to be bound by these Terms and all applicable South African laws.</p>
 
@@ -308,6 +315,45 @@
 </div>
 
 <script>
+
+  
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const packageAmounts = {
+      standard: 350,
+      silver: 750,
+      gold: 1100,
+      premium: 1500
+    };
+
+    const nextBtn = document.getElementById('nextStep');
+    nextBtn.addEventListener('click', () => {
+      const investmentType = document.getElementById('investmentType').value;
+      const packageType = document.getElementById('packageType').value;
+      const institution = document.getElementById('institution').value;
+
+      if(!investmentType || !packageType || !institution){
+        alert('Please select all fields before proceeding.');
+        return;
+      }
+
+      const amount = packageAmounts[packageType];
+
+      // Save selections to localStorage
+      localStorage.setItem('investmentType', investmentType);
+      localStorage.setItem('packageType', packageType);
+      localStorage.setItem('packageAmount', amount);
+      localStorage.setItem('institution', institution);
+
+      alert(Saved: ${investmentType} - ${packageType} (R${amount}) at ${institution});
+
+      // Optional: navigate to the next step/page
+      // window.location.href = 'profile.html';
+    });
+  });
+
+
     const steps = document.querySelectorAll(".step");
 const progressLine = document.querySelector(".progress-line::before");
 const fieldsets = document.querySelectorAll(".form-step");
@@ -438,7 +484,10 @@ const totalInvested = investments.reduce((sum, i) => sum + i.invested, 0);
 localStorage.setItem('totalInvested', totalInvested);
 
  window.location.href = 'profile.html';
-
+  
+  function goBack() {
+    window.history.back();
+  }
 </script>
 
 </body>

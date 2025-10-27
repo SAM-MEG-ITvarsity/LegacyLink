@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LegacyLink — Profile</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -29,7 +29,7 @@
     }
 
     /* Container */
-    .wrapper{max-width:1100px;margin:28px auto;padding:20px;}
+    .wrapper{max-width:1100px; margin:28px auto;padding:20px;}
 
     /* Header */
     .header{
@@ -205,168 +205,102 @@
       </aside>
     </main>
 
-    <div class="actions" aria-hidden="true">
-      <button class="fab" onclick="investNow()">💸 Invest Now</button>
-      <button class="small-fab" onclick="withdraw()">🔄 Withdraw</button>
-      <button class="small-fab" onclick="viewReturns()">🧮 View Returns</button>
-      <button class="small-fab" onclick="editProfile()">✍️ Edit Profile</button>
-    </div>
-
+   
   </div>
 
   <script>
-    // Mock data — replace with real API data when available
-    const user = {
-      name: 'Samantha-Megan Campher',
-      initials: 'SM',
-      subtitle: 'Investor | Future Builder',
-      joined: 'Jan 2025',
-      bio: 'I\u2019m building a legacy of financial stability and faith for my children. Every investment is a seed for the future 🌱.',
-      totalInvested: 45200,
-      activePlans: 3,
-      growth: 14.2,
-      legacyPercent: 65,
-      legacyGap: 15000,
-      avgRoi: 8.4,
-      nextPayout: 'Nov 10, 2025',
-      investments: [
-        {id:1, name:'Housing Plan', tier:'Silver', invested:10000, roi:8.2, status:'Active', lastUpdate:'2 days ago'},
-        {id:2, name:'Education Fund', tier:'Gold', invested:20000, roi:12.1, status:'Active', lastUpdate:'5 days ago'},
-        {id:3, name:'Vehicle Savings', tier:'Standard', invested:5200, roi:5.0, status:'Active', lastUpdate:'1 week ago'}
-      ],
-      activity:[
-        {time:'Yesterday', text:'You invested R2,000 in your Housing Plan', icon:'💸'},
-        {time:'3 days ago', text:'Your Education Fund ROI increased by 1.1%', icon:'📈'},
-        {time:'1 week ago', text:'You upgraded from Standard → Silver Tier', icon:'🌟'}
-      ]
-    };
+   // ✅ Load user data from localStorage or fallback to mock data
+let storedUser = JSON.parse(localStorage.getItem("user"));
+if (!storedUser) {
+  alert("No user data found — please register first.");
+  storedUser = {
+    fullname: "Samantha-Megan Campher",
+    email: "sample@email.com",
+    phone: "0000000000",
+  };
+}
 
-    // utility formatters
-    const money = (v)=> 'R' + v.toLocaleString('en-ZA');
+// ✅ Load investments or use mock data
+const storedInvestments = JSON.parse(localStorage.getItem('investments')) || [
+  {id:1, name:'Housing Plan', tier:'Silver', invested:10000, roi:8.2, status:'Active', lastUpdate:'2 days ago'},
+  {id:2, name:'Education Fund', tier:'Gold', invested:20000, roi:12.1, status:'Active', lastUpdate:'5 days ago'},
+  {id:3, name:'Vehicle Savings', tier:'Standard', invested:5200, roi:5.0, status:'Active', lastUpdate:'1 week ago'}
+];
 
-    // populate UI
-    document.getElementById('fullName').childNodes[0].nodeValue = user.name + ' ';
-    document.getElementById('subtitle').textContent = user.subtitle;
-    document.getElementById('joined').textContent = user.joined;
-    document.getElementById('bio').textContent = user.bio;
-    document.getElementById('totalInvested').textContent = money(user.totalInvested);
-    document.getElementById('activePlans').textContent = user.activePlans;
-    document.getElementById('growth').textContent = (user.growth>0?'+':'')+user.growth+'%';
-    document.getElementById('avatar').textContent = user.initials;
-    document.getElementById('avgRoi').textContent = user.avgRoi + '%';
-    document.getElementById('nextPayout').textContent = user.nextPayout;
-    document.getElementById('percentLabel').textContent = user.legacyPercent + '%';
-    document.getElementById('meterText').textContent = 'You are R' + user.legacyGap.toLocaleString('en-ZA') + ' away from your next milestone 🎯';
-
-    // investments rendering
-    const invRoot = document.getElementById('investmentsList');
-    user.investments.forEach(inv=>{
-      const el = document.createElement('div');
-      el.className='invest-card';
-      el.innerHTML = `
-        <div class="invest-left">
-          <div class="plan-badge" style="background:linear-gradient(180deg,rgba(212,180,131,0.14),rgba(163,217,200,0.04));width:56px;height:56px;border-radius:12px">${inv.tier.charAt(0)}</div>
-          <div class="plan-info">
-            <h4>${inv.name} <small style="color:var(--muted);font-weight:500">• ${inv.tier}</small></h4>
-            <p>Invested: <strong>${money(inv.invested)}</strong> • ROI: ${inv.roi}%</p>
-          </div>
-        </div>
-        <div class="plan-actions">
-          <button onclick="viewDetails(${inv.id})">View Details</button>
-        </div>
-      `;
-      invRoot.appendChild(el);
-    });
-
-    // activity
-    const actRoot = document.getElementById('activityList');
-    user.activity.forEach(a=>{
-      const it = document.createElement('div');it.className='activity-item';
-      it.innerHTML = `
-        <div class="act-icon">${a.icon}</div>
-        <div>
-          <div class="act-text">${a.text}</div>
-          <div class="act-time">${a.time}</div>
-        </div>
-      `;
-      actRoot.appendChild(it);
-    });
-
-    // animate progress ring
-    (function animateRing(){
-      const circle = document.getElementById('progressCircle');
-      const radius = 48;
-      const circumference = 2 * Math.PI * radius; // ~301.44
-      circle.style.strokeDasharray = circumference;
-      // target offset for percent
-      const percent = user.legacyPercent;
-      const targetOffset = circumference * (1 - percent/100);
-
-      let offset = circumference;
-      const duration = 1000;
-      const start = performance.now();
-      function frame(t){
-        const p = Math.min(1,(t-start)/duration);
-        const eased = 1 - Math.pow(1-p,3);
-        const cur = circumference - (circumference - targetOffset) * eased;
-        circle.style.strokeDashoffset = cur;
-        if(p<1) requestAnimationFrame(frame);
-      }
-      requestAnimationFrame(frame);
-    })();
-
-    // button actions (placeholder)
-    function investNow(){alert('Invest Now — open investment flow (placeholder)');}
-    function withdraw(){alert('Withdraw — open withdraw flow (placeholder)');}
-    function viewReturns(){alert('View Returns — open returns modal (placeholder)');}
-    function editProfile(){alert('Edit Profile — open edit screen (placeholder)');}
-    function viewDetails(id){alert('View details for investment id: ' + id);}
-
-    // edit bio flow (simple inline prompt for mock)
-    function editBio(){
-      const newBio = prompt('Edit your bio', user.bio);
-      if(newBio!==null){
-        user.bio = newBio.trim();
-        document.getElementById('bio').textContent = user.bio;
-      }
-    }
-// Load from localStorage or fallback
-const storedInvestments = JSON.parse(localStorage.getItem('investments')) || [];
-const storedTotal = localStorage.getItem('totalInvested') || 0;
-
-// Use stored data if available
+// ✅ Build the user object dynamically
 const user = {
-  name: 'Samantha-Megan Campher',
-  initials: 'SM',
+  name: storedUser.fullname,
+  initials: storedUser.fullname ? storedUser.fullname.split(" ").map(w => w[0]).join("").toUpperCase().slice(0,2) : "U",
   subtitle: 'Investor | Future Builder',
-  joined: 'Jan 2025',
+  joined: new Date().toLocaleString('default', { month: 'short', year: 'numeric' }),
   bio: 'I’m building a legacy of financial stability and faith for my children. Every investment is a seed for the future 🌱.',
-  totalInvested: Number(storedTotal) || 45200,
-  activePlans: storedInvestments.length || 3,
+  totalInvested: 45200,
+  activePlans: storedInvestments.length,
   growth: 14.2,
   legacyPercent: 65,
   legacyGap: 15000,
   avgRoi: 8.4,
   nextPayout: 'Nov 10, 2025',
-  investments: storedInvestments.length ? storedInvestments : [
-    {id:1, name:'Housing Plan', tier:'Silver', invested:10000, roi:8.2, status:'Active', lastUpdate:'2 days ago'},
-    {id:2, name:'Education Fund', tier:'Gold', invested:20000, roi:12.1, status:'Active', lastUpdate:'5 days ago'},
-    {id:3, name:'Vehicle Savings', tier:'Standard', invested:5200, roi:5.0, status:'Active', lastUpdate:'1 week ago'}
-  ],
-  activity:[
-    {time:'Yesterday', text:'You invested R2,000 in your Housing Plan', icon:'💸'},
-    {time:'3 days ago', text:'Your Education Fund ROI increased by 1.1%', icon:'📈'},
-    {time:'1 week ago', text:'You upgraded from Standard → Silver Tier', icon:'🌟'}
+  investments: storedInvestments,
+  activity: [
+    {time:'Yesterday', text:'You logged in successfully', icon:'✅'},
+    {time:'3 days ago', text:'Account created successfully', icon:'🎉'}
   ]
 };
-if (storedInvestments.length) {
-  const last = storedInvestments[storedInvestments.length - 1];
-  user.activity.unshift({
-    time: 'Just now',
-    text: `You invested ${money(last.invested)} in your ${last.name}`,
-    icon: '💰'
-  });
-}
+
+// ✅ Populate the page dynamically
+const money = (v)=> 'R' + v.toLocaleString('en-ZA');
+
+document.getElementById('fullName').childNodes[0].nodeValue = user.name + ' ';
+document.getElementById('subtitle').textContent = user.subtitle;
+document.getElementById('joined').textContent = user.joined;
+document.getElementById('bio').textContent = user.bio;
+document.getElementById('totalInvested').textContent = money(user.totalInvested);
+document.getElementById('activePlans').textContent = user.activePlans;
+document.getElementById('growth').textContent = (user.growth>0?'+':'')+user.growth+'%';
+document.getElementById('avatar').textContent = user.initials;
+document.getElementById('avgRoi').textContent = user.avgRoi + '%';
+document.getElementById('nextPayout').textContent = user.nextPayout;
+document.getElementById('percentLabel').textContent = user.legacyPercent + '%';
+document.getElementById('meterText').textContent = 'You are R' + user.legacyGap.toLocaleString('en-ZA') + ' away from your next milestone 🎯';
+
+// ✅ Render investments dynamically
+const invRoot = document.getElementById('investmentsList');
+invRoot.innerHTML = ''; // clear
+user.investments.forEach(inv=>{
+  const el = document.createElement('div');
+  el.className='invest-card';
+  el.innerHTML = `
+    <div class="invest-left">
+      <div class="plan-badge" style="background:linear-gradient(180deg,rgba(212,180,131,0.14),rgba(163,217,200,0.04));width:56px;height:56px;border-radius:12px">${inv.tier.charAt(0)}</div>
+      <div class="plan-info">
+        <h4>${inv.name} <small style="color:var(--muted);font-weight:500">• ${inv.tier}</small></h4>
+        <p>Invested: <strong>${money(inv.invested)}</strong> • ROI: ${inv.roi}%</p>
+      </div>
+    </div>
+    <div class="plan-actions">
+      <button onclick="viewDetails(${inv.id})">View Details</button>
+    </div>
+  `;
+  invRoot.appendChild(el);
+});
+
+// ✅ Render activity
+const actRoot = document.getElementById('activityList');
+actRoot.innerHTML = '';
+user.activity.forEach(a=>{
+  const it = document.createElement('div');
+  it.className='activity-item';
+  it.innerHTML = `
+    <div class="act-icon">${a.icon}</div>
+    <div>
+      <div class="act-text">${a.text}</div>
+      <div class="act-time">${a.time}</div>
+    </div>
+  `;
+  actRoot.appendChild(it);
+});
+
 
   </script>
 </body>
